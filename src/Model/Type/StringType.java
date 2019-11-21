@@ -1,12 +1,12 @@
 package Model.Type;
 
-import Model.Value.BoolValue;
+import Model.Value.StringValue;
 import Model.Value.Value;
 
-public class BooleanType implements Type {
+public class StringType implements Type {
     @Override
     public boolean equals(Object another) {
-        if (another instanceof BooleanType)
+        if (another instanceof StringType)
             return true;
         else
             return false;
@@ -14,11 +14,11 @@ public class BooleanType implements Type {
 
     @Override
     public String toString() {
-        return "boolean";
+        return "string";
     }
 
     @Override
     public Value defaultValue() {
-        return new BoolValue(false);
+        return new StringValue("");
     }
 }

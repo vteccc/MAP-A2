@@ -13,12 +13,8 @@ public class NopStatement {
         _old = old;
     }
 
-    public ProgramState execute() {
-        MyInterfaceList<Value> _list = _old.getList();
-        MyInterfaceDictionary<String, Value> _table = _old.getSymbolTable();
-        MyInterfaceStack<InterfaceStatement> _stack = _old.getStack();
-        _stack.pop();
-        return new ProgramState();
+    public ProgramState execute(ProgramState state) {
+        return state;
     }
 
     @Override

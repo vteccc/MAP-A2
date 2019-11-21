@@ -24,7 +24,6 @@ public class MyStack<T> implements MyInterfaceStack<T> {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Stack:\n");
         for (T statement : stack) {
             result.append(statement.toString()).append("\n");
         }

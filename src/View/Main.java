@@ -9,8 +9,10 @@ import Model.ProgramState;
 import Model.Statement.*;
 import Model.Type.BooleanType;
 import Model.Type.IntType;
+import Model.Type.StringType;
 import Model.Value.BoolValue;
 import Model.Value.IntValue;
+import Model.Value.StringValue;
 import Repository.Repository;
 
 import java.util.Scanner;
@@ -25,19 +27,20 @@ public class Main {
         int option = read_from_keyboard.nextInt();
         //1
         if (option == 1) {
-            Repository repository = new Repository();
-            Controller controller = new Controller(repository);
             System.out.println("Example 1:\n");
-            InterfaceStatement ex1;
-            ex1 = new CompStatement(new VarDeclarationStatement
-                    ("v", new IntType()),
-                    new CompStatement
-                            (new AssignStatement
-                                    ("v", new ValueExp(new IntValue(2))),
-                                    new PrintStatement(new VarExp("v"))));
-            ProgramState p1 = new ProgramState();
-            p1.getStack().push(ex1);
-            repository.add_program(p1);
+            InterfaceStatement ex9;
+            ex9 = new CompStatement(new VarDeclarationStatement("varf", new StringType()),
+                    new CompStatement(
+                            new AssignStatement("varf", new ValueExp(new StringValue("/home/cvl/IdeaProjects/lab2/test1.txt"))),
+                            new CompStatement(new OpenReadFile(new VarExp("varf")),
+                                    new CompStatement(new VarDeclarationStatement("varc", new IntType()),
+                                            new CompStatement(new ReadFile(new VarExp("varf"), "varc"),
+                                                    new CompStatement(new PrintStatement(new VarExp("varc")),
+                                                            new CompStatement(new ReadFile(new VarExp("varf"), "varc"),
+                                                                    new CompStatement(new PrintStatement(new VarExp("varc")), new CloseReadFile(new VarExp("varf"))))))))));
+            ProgramState p1 = new ProgramState(ex9);
+            Repository repository = new Repository(p1, "/home/cvl/IdeaProjects/lab2/test2.txt");
+            Controller controller = new Controller(repository);
             while (ok) {
 
                 System.out.println("1 - One step,\n2 - Full execution,\n3 - Display state,\n0 - Exit.");
@@ -47,7 +50,7 @@ public class Main {
                     ok = false;
                 if (option == 1) {
                     try {
-                        System.out.println(controller.one_step());
+                        controller.one_step();
                     } catch (MyException ex) {
                         System.out.println(ex.getMessage());
                     }
@@ -66,8 +69,7 @@ public class Main {
         }
         //2
         if (option == 2) {
-            Repository repository = new Repository();
-            Controller controller = new Controller(repository);
+
             System.out.println("Example 2:\n");
             InterfaceStatement ex2;
             ex2 = new CompStatement
@@ -75,14 +77,13 @@ public class Main {
                             new CompStatement(new VarDeclarationStatement("b", new IntType()),
                                     new CompStatement(new AssignStatement("a",
                                             new ArithmeticExp(new ValueExp(new IntValue(2)),
-                                                    new ArithmeticExp(new ValueExp(new IntValue(3)), new ValueExp(new IntValue(5)), 3),
-                                                    1)),
+                                                    "+",new ArithmeticExp(new ValueExp(new IntValue(3)), "*",new ValueExp(new IntValue(5))))),
                                             new CompStatement(new AssignStatement("b",
-                                                    new ArithmeticExp(new VarExp("a"), new ValueExp(new IntValue(1)), 1)),
+                                                    new ArithmeticExp(new VarExp("a"), "+", new ValueExp(new IntValue(1)))),
                                                     new PrintStatement(new VarExp("b"))))));
-            ProgramState p2 = new ProgramState();
-            p2.getStack().push(ex2);
-            repository.add_program(p2);
+            ProgramState p2 = new ProgramState(ex2);
+            Repository repository = new Repository(p2, "/home/cvl/IdeaProjects/lab2/test.out");
+            Controller controller = new Controller(repository);
             while (ok) {
                 System.out.println("1 - One step,\n2 - Full execution,\n3 - Display state.");
                 System.out.println("Insert option: ");
@@ -91,7 +92,7 @@ public class Main {
                     ok = false;
                 if (option == 1) {
                     try {
-                        System.out.println(controller.one_step());
+                        controller.one_step();
                     } catch (MyException ex) {
                         System.out.println(ex.getMessage());
                     }
@@ -110,8 +111,7 @@ public class Main {
         }
         //3
         if (option == 3) {
-            Repository repository = new Repository();
-            Controller controller = new Controller(repository);
+
             System.out.println("Example 3:\n");
             InterfaceStatement ex3 = new CompStatement
                     (new VarDeclarationStatement("a", new BooleanType()),
@@ -121,9 +121,9 @@ public class Main {
                                                     new AssignStatement("v", new ValueExp(new IntValue(2))),
                                                     new AssignStatement("v", new ValueExp(new IntValue(3)))),
                                                     new PrintStatement(new VarExp("v"))))));
-            ProgramState p3 = new ProgramState();
-            p3.getStack().push(ex3);
-            repository.add_program(p3);
+            ProgramState p3 = new ProgramState(ex3);
+            Repository repository = new Repository(p3, "/home/cvl/IdeaProjects/lab2/test3.txt");
+            Controller controller = new Controller(repository);
             while (ok) {
                 System.out.println("1 - One step,\n2 - Full execution,\n3 - Display state.");
                 System.out.println("Insert option: ");
@@ -132,7 +132,7 @@ public class Main {
                     ok = false;
                 if (option == 1) {
                     try {
-                        System.out.println(controller.one_step());
+                        controller.one_step();
                     } catch (MyException ex) {
                         System.out.println(ex.getMessage());
                     }

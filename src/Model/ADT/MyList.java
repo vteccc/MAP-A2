@@ -17,7 +17,6 @@ public class MyList<T> implements MyInterfaceList<T> {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("\nList:\n");
         int i;
         for (i = 0; i < list.size(); i += 1) {
             result.append(list.get(i).toString());

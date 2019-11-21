@@ -24,6 +24,10 @@ public class MyDictionary<T, U> implements MyInterfaceDictionary<T, U> {
         dictionary.put(k, v);
     }
 
+    public void remove(T id) {
+        dictionary.remove(id);
+    }
+
     @Override
     public String toString() {
         Set<T> keys = dictionary.keySet();
@@ -31,7 +35,6 @@ public class MyDictionary<T, U> implements MyInterfaceDictionary<T, U> {
         Object[] a1 = keys.toArray();
         Object[] a2 = val.toArray();
         StringBuilder result = new StringBuilder();
-        result.append("\nDictionary:\n");
         int i;
         for (i = 0; i < dictionary.size(); i++) {
             result.append(a1[i]).append(" = ").append(a2[i]).append("\n");

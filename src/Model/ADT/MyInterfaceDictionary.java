@@ -7,5 +7,7 @@ public interface MyInterfaceDictionary<T, U> {
 
     void update(T id, U v);
 
+    void remove(T id);
+
     String toString();
 }
