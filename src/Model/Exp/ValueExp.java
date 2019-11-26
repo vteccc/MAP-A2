@@ -1,22 +1,21 @@
 package Model.Exp;
 
-import Model.MyException;
 import Model.ADT.MyInterfaceDictionary;
 import Model.Value.Value;
 
 public class ValueExp implements Exp {
-    private Value _e;
+    private Value e;
 
     public ValueExp(Value e) {
-        _e = e;
+        this.e = e;
     }
 
     public Value evaluate(MyInterfaceDictionary<String, Value> table){
-        return _e;
+        return e;
     }
 
     @Override
     public String toString() {
-        return _e.toString();
+        return e.toString();
     }
 }

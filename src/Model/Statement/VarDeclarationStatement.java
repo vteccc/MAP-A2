@@ -8,27 +8,27 @@ import Model.Type.Type;
 import Model.Value.Value;
 
 public class VarDeclarationStatement implements InterfaceStatement {
-    private String _name;
-    private Type _type;
+    private String name;
+    private Type type;
 
     public VarDeclarationStatement(String name, Type type) {
-        _name = name;
-        _type = type;
+        this.name = name;
+        this.type = type;
     }
 
     public ProgramState execute(ProgramState state) throws MyException {
         MyInterfaceStack<InterfaceStatement> stk = state.getStack();
         MyInterfaceDictionary<String, Value> symbolTable = state.getSymbolTable();
-        if (symbolTable.isDefined(_name)) {
+        if (symbolTable.isDefined(name)) {
             throw new MyException("Error:Variable is already declared!");
         } else {
-            symbolTable.update(_name, _type.defaultValue());
+            symbolTable.update(name, type.defaultValue());
             return state;
         }
     }
 
 
     public String toString() {
-        return _name + " is " + _type.toString();
+        return name + " is " + type.toString();
     }
 }
