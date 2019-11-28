@@ -20,12 +20,13 @@ public class CloseReadFile implements InterfaceStatement {
     public ProgramState execute(ProgramState state) throws MyException {
         MyInterfaceDictionary<String, Value> symbolTable = state.getSymbolTable();
         MyInterfaceDictionary<String, BufferedReader> fileTable = state.getFileTable();
-        if (exp.evaluate(symbolTable).getType().toString().equals("string")) {
-            if (fileTable.isDefined(exp.evaluate(symbolTable).toString())) {
+        MyInterfaceDictionary<Integer,Value> heapTable = state.getHeapTable();
+        if (exp.evaluate(symbolTable,heapTable).getType().toString().equals("string")) {
+            if (fileTable.isDefined(exp.evaluate(symbolTable,heapTable).toString())) {
                 try {
-                    BufferedReader reader = fileTable.getValue(exp.evaluate(symbolTable).toString());
+                    BufferedReader reader = fileTable.getValue(exp.evaluate(symbolTable,heapTable).toString());
                     reader.close();
-                    fileTable.remove(exp.evaluate(symbolTable).toString());
+                    fileTable.remove(exp.evaluate(symbolTable,heapTable).toString());
                 } catch (IOException e) {
                     throw new MyException("Error while closing buffer!");
                 }

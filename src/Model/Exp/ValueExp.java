@@ -10,7 +10,8 @@ public class ValueExp implements Exp {
         this.e = e;
     }
 
-    public Value evaluate(MyInterfaceDictionary<String, Value> table){
+    @Override
+    public Value evaluate(MyInterfaceDictionary<String, Value> table, MyInterfaceDictionary<Integer, Value> heapTable) {
         return e;
     }
 

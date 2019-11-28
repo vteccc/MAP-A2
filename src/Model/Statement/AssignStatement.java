@@ -20,11 +20,12 @@ public class AssignStatement implements InterfaceStatement {
     public String toString() {
         return id + " = " + exp.toString();
     }
-
+    //ADD HEAP TABLE!!
     public ProgramState execute(ProgramState state) throws MyException {
         MyInterfaceStack<InterfaceStatement> stk = state.getStack();
         MyInterfaceDictionary<String, Value> symbolTable = state.getSymbolTable();
-        Value val = exp.evaluate(symbolTable);
+        MyInterfaceDictionary<Integer,Value> heapTable = state.getHeapTable();
+        Value val = exp.evaluate(symbolTable,heapTable);
         if (symbolTable.isDefined(id)) {
             Type typeID = (symbolTable.getValue(id)).getType();
             if (val.getType().equals(typeID))

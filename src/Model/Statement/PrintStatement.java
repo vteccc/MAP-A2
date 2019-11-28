@@ -20,7 +20,7 @@ public class PrintStatement implements InterfaceStatement {
 
     public ProgramState execute(ProgramState state) throws MyException {
         MyInterfaceList<Value> list = state.getList();
-        list.add(exp.evaluate(state.getSymbolTable()));
+        list.add(exp.evaluate(state.getSymbolTable(),state.getHeapTable()));
         return state;
     }
 }

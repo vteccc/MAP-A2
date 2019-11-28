@@ -1,18 +1,17 @@
 package View;
 
 import Controller.Controller;
-import Model.Exp.ArithmeticExp;
-import Model.Exp.RelationExp;
-import Model.Exp.ValueExp;
-import Model.Exp.VarExp;
+import Model.Exp.*;
 import Model.ProgramState;
 import Model.Statement.*;
 import Model.Type.BooleanType;
 import Model.Type.IntType;
+import Model.Type.ReferenceType;
 import Model.Type.StringType;
 import Model.Value.BoolValue;
 import Model.Value.IntValue;
 import Model.Value.StringValue;
+import Model.Value.Value;
 import Repository.RepoInterface;
 import Repository.Repository;
 
@@ -81,6 +80,37 @@ class Interpreter {
         RepoInterface repo5 = new Repository(p5, "log5.txt");
         Controller contr5 = new Controller(repo5);
 
+        InterfaceStatement ex6;
+        ex6=new CompStatement(new VarDeclarationStatement("v",new IntType()),
+                new CompStatement(new AssignStatement("v", new ValueExp(new IntValue(4))),
+                new CompStatement(new WhileStatement(new RelationExp(new VarExp("v"),">",new ValueExp(new IntValue(0))),
+                        new CompStatement(new PrintStatement(new VarExp("v")),new AssignStatement("v",new ArithmeticExp(new VarExp("v"),"-",new ValueExp(new IntValue(1)))))),
+                        new PrintStatement(new VarExp("v")))));
+        ProgramState p6 = new ProgramState(ex6);
+        RepoInterface repo6 = new Repository(p6, "log6.txt");
+        Controller contr6 = new Controller(repo6);
+
+        InterfaceStatement ex7;
+        ex7 = new CompStatement(new VarDeclarationStatement("v",new ReferenceType(new IntType())),
+                new CompStatement(new newStatement("v",new ValueExp(new IntValue(20))),
+                        new CompStatement(new PrintStatement(new readHeap(new VarExp("v"))),
+                                new CompStatement(new WriteHeapStatement("v",new ValueExp(new IntValue(30))),
+                                        new PrintStatement(new ArithmeticExp(new readHeap(new VarExp("v")),"+",new ValueExp(new IntValue(5))))))));
+        ProgramState p7 = new ProgramState(ex7);
+        RepoInterface repo7 = new Repository(p7, "log7.txt");
+        Controller contr7 = new Controller(repo7);
+
+        InterfaceStatement ex8;
+        ex8 = new CompStatement(new VarDeclarationStatement("v",new ReferenceType(new IntType())),
+                new CompStatement(new newStatement("v",new ValueExp(new IntValue(20))),
+                        new CompStatement(new VarDeclarationStatement("a",new ReferenceType(new ReferenceType(new IntType()))),
+                                new CompStatement(new newStatement("a",new VarExp("v")),
+                                        new CompStatement(new newStatement("v",new ValueExp(new IntValue(30))),
+                                                new PrintStatement(new readHeap(new readHeap(new VarExp("a")))))))));
+        ProgramState p8 = new ProgramState(ex8);
+        RepoInterface repo8 = new Repository(p8, "log8.txt");
+        Controller contr8 = new Controller(repo8);
+
 
         TextMenu menu = new TextMenu();
         menu.addCommand(new RunExample("1", "Example 1", contr1));
@@ -88,6 +118,9 @@ class Interpreter {
         menu.addCommand(new RunExample("3", "Example 3", contr3));
         menu.addCommand(new RunExample("4", "Example 4", contr4));
         menu.addCommand(new RunExample("5", "Example 5", contr5));
+        menu.addCommand(new RunExample("6", "Example 6", contr6));
+        menu.addCommand(new RunExample("7", "Example 7", contr7));
+        menu.addCommand(new RunExample("8", "Example 8", contr8));
         menu.addCommand(new ExitCommand("0","Exit"));
         menu.show();
     }

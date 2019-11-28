@@ -2,10 +2,12 @@ package Model.ADT;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class MyDictionary<T, U> implements MyInterfaceDictionary<T, U> {
-    private HashMap<T, U> dictionary;
+    private Map<T, U> dictionary;
+    private int index = 1;
 
     public MyDictionary() {
         dictionary = new HashMap<T, U>();
@@ -21,11 +23,24 @@ public class MyDictionary<T, U> implements MyInterfaceDictionary<T, U> {
     }
 
     public void update(T k, U v) {
+        index++;
         dictionary.put(k, v);
     }
 
     public void remove(T id) {
         dictionary.remove(id);
+    }
+
+    public void setContent(Map<T, U> dictionary) {
+        this.dictionary = dictionary;
+    }
+
+    public Map<T, U> getContent() {
+        return dictionary;
+    }
+
+    public int getIndex(){
+        return index;
     }
 
     @Override

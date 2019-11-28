@@ -21,12 +21,12 @@ public class LogicExp implements Exp {
         this.operand = operand;
     }
 
-    public Value evaluate(MyInterfaceDictionary<String, Value> table) throws MyException {
+    public Value evaluate(MyInterfaceDictionary<String, Value> table, MyInterfaceDictionary<Integer,Value> heapTable) throws MyException {
         if (operands.contains(operand)) {
             Value v1, v2;
-            v1 = exp1.evaluate(table);
+            v1 = exp1.evaluate(table,heapTable);
             if (v1.getType().equals(new IntType())) {
-                v2 = exp2.evaluate(table);
+                v2 = exp2.evaluate(table,heapTable);
                 if (v2.getType().equals(new IntType())) {
                     BoolValue i1 = (BoolValue) v1;
                     BoolValue i2 = (BoolValue) v2;

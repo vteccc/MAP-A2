@@ -11,15 +11,10 @@ public class IfStatement implements InterfaceStatement {
     private InterfaceStatement thenStatement;
     private InterfaceStatement elseStatement;
 
-    public IfStatement(InterfaceStatement then, InterfaceStatement _else) {
-        thenStatement = then;
-        elseStatement = _else;
-    }
-
-    public IfStatement(Exp e, InterfaceStatement t, InterfaceStatement el) {
-        exp = e;
-        thenStatement = t;
-        elseStatement = el;
+    public IfStatement(Exp exp, InterfaceStatement thenStatement, InterfaceStatement elseStatement) {
+        this.exp = exp;
+        this.thenStatement = thenStatement;
+        this.elseStatement = elseStatement;
     }
 
     public String toString() {
@@ -29,11 +24,12 @@ public class IfStatement implements InterfaceStatement {
 
     public ProgramState execute(ProgramState state) throws MyException {
         MyInterfaceDictionary<String, Value> symbolTable = state.getSymbolTable();
-        if (exp.evaluate(symbolTable).getType().toString().equals("boolean")) {
-            if (exp.evaluate(symbolTable).toString().equals("true")) {
+        MyInterfaceDictionary<Integer,Value> heapTable = state.getHeapTable();
+        if (exp.evaluate(symbolTable,heapTable).getType().toString().equals("boolean")) {
+            if (exp.evaluate(symbolTable,heapTable).toString().equals("true")) {
                 thenStatement.execute(state);
             } else {
-                if (exp.evaluate(symbolTable).toString().equals("false")) {
+                if (exp.evaluate(symbolTable,heapTable).toString().equals("false")) {
                     elseStatement.execute(state);
                 }
             }

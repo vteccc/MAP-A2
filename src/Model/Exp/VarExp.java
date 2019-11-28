@@ -11,7 +11,7 @@ public class VarExp implements Exp {
         this.id = id;
     }
 
-    public Value evaluate(MyInterfaceDictionary<String, Value> table){
+    public Value evaluate(MyInterfaceDictionary<String, Value> table, MyInterfaceDictionary<Integer, Value> heapTable) {
         return table.getValue(id);
     }
 

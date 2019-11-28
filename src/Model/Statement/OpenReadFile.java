@@ -21,11 +21,12 @@ public class OpenReadFile implements InterfaceStatement {
     public ProgramState execute(ProgramState state) throws MyException {
         MyInterfaceDictionary<String, Value> symbolTable = state.getSymbolTable();
         MyInterfaceDictionary<String, BufferedReader> fileTable = state.getFileTable();
-        if (exp.evaluate(symbolTable).getType().toString().equals("string")) {
-            if(!fileTable.isDefined(exp.evaluate(symbolTable).toString())){
+        MyInterfaceDictionary<Integer,Value> heapTable = state.getHeapTable();
+        if (exp.evaluate(symbolTable,heapTable).getType().toString().equals("string")) {
+            if(!fileTable.isDefined(exp.evaluate(symbolTable,heapTable).toString())){
                 try {
-                    BufferedReader reader = new BufferedReader(new FileReader(exp.evaluate(symbolTable).toString()));
-                    fileTable.update(exp.evaluate(symbolTable).toString(), reader);
+                    BufferedReader reader = new BufferedReader(new FileReader(exp.evaluate(symbolTable,heapTable).toString()));
+                    fileTable.update(exp.evaluate(symbolTable,heapTable).toString(), reader);
                 } catch (FileNotFoundException e) {
                     throw new MyException("Error:File doesn't exist!");
                 }

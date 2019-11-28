@@ -21,12 +21,12 @@ public class ArithmeticExp implements Exp {
         this.operand = operand;
     }
 
-    public Value evaluate(MyInterfaceDictionary<String, Value> table) throws MyException {
+    public Value evaluate(MyInterfaceDictionary<String, Value> table, MyInterfaceDictionary<Integer,Value> heapTable) throws MyException {
         if (operands.contains(operand)) {
             Value v1, v2;
-            v1 = exp1.evaluate(table);
+            v1 = exp1.evaluate(table,heapTable);
             if (v1.getType().equals(new IntType())) {
-                v2 = exp2.evaluate(table);
+                v2 = exp2.evaluate(table,heapTable);
                 if (v2.getType().equals(new IntType())) {
                     IntValue i1 = (IntValue) v1;
                     IntValue i2 = (IntValue) v2;

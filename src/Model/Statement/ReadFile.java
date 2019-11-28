@@ -24,11 +24,12 @@ public class ReadFile implements InterfaceStatement {
     public ProgramState execute(ProgramState state) throws MyException {
         MyInterfaceDictionary<String, Value> symbolTable = state.getSymbolTable();
         MyInterfaceDictionary<String, BufferedReader> fileTable = state.getFileTable();
+        MyInterfaceDictionary<Integer,Value> heapTable = state.getHeapTable();
         if (symbolTable.getValue(val).getType().toString().equals("int")) {
-            if (exp.evaluate(symbolTable).getType().toString().equals("string")) {
-                if (fileTable.isDefined(exp.evaluate(symbolTable).toString())) {
+            if (exp.evaluate(symbolTable,heapTable).getType().toString().equals("string")) {
+                if (fileTable.isDefined(exp.evaluate(symbolTable,heapTable).toString())) {
                     try {
-                        BufferedReader reader = fileTable.getValue(exp.evaluate(symbolTable).toString());
+                        BufferedReader reader = fileTable.getValue(exp.evaluate(symbolTable,heapTable).toString());
                         symbolTable.update(val, new IntValue(Integer.parseInt(reader.readLine())));
                     } catch (Exception e ) {
                         throw new MyException("Error while parsing int!");
