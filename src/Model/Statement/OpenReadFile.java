@@ -38,7 +38,7 @@ public class OpenReadFile implements InterfaceStatement {
         else{
             throw new MyException("Error:Opening a read file requires a string as its argument!");
         }
-        return state;
+        return null;
     }
 
     public String toString() {

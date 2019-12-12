@@ -43,7 +43,7 @@ public class ReadFile implements InterfaceStatement {
         } else {
             throw new MyException("Error:The second argument must be a variable that's an int!");
         }
-        return state;
+        return null;
     }
 
     public String toString() {

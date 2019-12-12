@@ -34,6 +34,6 @@ public class AssignStatement implements InterfaceStatement {
                 throw new MyException("Error:Declared type of variable " + id + " and type of the assigned expression do not match!");
         } else
             throw new MyException("Error:The used variable " + id + " was not declared before!");
-        return state;
+        return null;
     }
 }

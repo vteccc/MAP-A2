@@ -21,6 +21,6 @@ public class CompStatement implements InterfaceStatement {
         MyInterfaceStack<InterfaceStatement> stk = state.getStack();
         stk.push(second);
         stk.push(first);
-        return state;
+        return null;
     }
 }

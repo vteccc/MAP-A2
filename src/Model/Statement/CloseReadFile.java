@@ -37,7 +37,7 @@ public class CloseReadFile implements InterfaceStatement {
         else{
             throw new MyException("Error:Closing a read file requires a string as its argument!");
         }
-        return state;
+        return null;
     }
 
     public String toString() {

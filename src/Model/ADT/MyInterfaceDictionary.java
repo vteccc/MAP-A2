@@ -1,9 +1,9 @@
 package Model.ADT;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public interface MyInterfaceDictionary<T, U> {
+public interface MyInterfaceDictionary<T, U>{
+
     boolean isDefined(T id);
 
     U getValue(T id);

@@ -13,7 +13,7 @@ public class RunExample extends Command {
     public void execute() {
         try{
             ctr.complete_exe();
-        }catch (MyException e){
+        }catch (MyException | InterruptedException e){
             System.out.println(e.getMessage());
         }
     }

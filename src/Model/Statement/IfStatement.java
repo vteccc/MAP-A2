@@ -37,6 +37,6 @@ public class IfStatement implements InterfaceStatement {
             throw new MyException("Error:If must contain a boolean type in its arguments!");
         }
 
-        return state;
+        return null;
     }
 }

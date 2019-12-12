@@ -17,6 +17,7 @@ import Repository.Repository;
 
 class Interpreter {
     public static void main(String[] args) {
+
         InterfaceStatement ex1;
         ex1 = new CompStatement(new VarDeclarationStatement
                 ("v", new IntType()),
@@ -92,7 +93,7 @@ class Interpreter {
 
         InterfaceStatement ex7;
         ex7 = new CompStatement(new VarDeclarationStatement("v",new ReferenceType(new IntType())),
-                new CompStatement(new newStatement("v",new ValueExp(new IntValue(20))),
+                new CompStatement(new NewStatement("v",new ValueExp(new IntValue(20))),
                         new CompStatement(new PrintStatement(new readHeap(new VarExp("v"))),
                                 new CompStatement(new WriteHeapStatement("v",new ValueExp(new IntValue(30))),
                                         new PrintStatement(new ArithmeticExp(new readHeap(new VarExp("v")),"+",new ValueExp(new IntValue(5))))))));
@@ -102,17 +103,33 @@ class Interpreter {
 
         InterfaceStatement ex8;
         ex8 = new CompStatement(new VarDeclarationStatement("v",new ReferenceType(new IntType())),
-                new CompStatement(new newStatement("v",new ValueExp(new IntValue(20))),
+                new CompStatement(new NewStatement("v",new ValueExp(new IntValue(20))),
                         new CompStatement(new VarDeclarationStatement("a",new ReferenceType(new ReferenceType(new IntType()))),
-                                new CompStatement(new newStatement("a",new VarExp("v")),
-                                        new CompStatement(new newStatement("v",new ValueExp(new IntValue(30))),
+                                new CompStatement(new NewStatement("a",new VarExp("v")),
+                                        new CompStatement(new NewStatement("v",new ValueExp(new IntValue(30))),
                                                 new PrintStatement(new readHeap(new readHeap(new VarExp("a")))))))));
         ProgramState p8 = new ProgramState(ex8);
         RepoInterface repo8 = new Repository(p8, "log8.txt");
         Controller contr8 = new Controller(repo8);
 
+        InterfaceStatement ex9;
+        ex9 = new CompStatement(new VarDeclarationStatement("v", new IntType()),
+                new CompStatement(new VarDeclarationStatement("a", new ReferenceType(new IntType())),
+                        new CompStatement(new AssignStatement("v", new ValueExp(new IntValue(10))),
+                                new CompStatement(new NewStatement("a", new ValueExp(new IntValue(22))),
+                                        new CompStatement(new ForkStatement(new CompStatement(new WriteHeapStatement("a", new ValueExp(new IntValue(30))),
+                                                new CompStatement(new AssignStatement("v", new ValueExp(new IntValue(32))),
+                                                        new CompStatement(new PrintStatement(new VarExp("v")), new PrintStatement(new readHeap(new VarExp("a"))))))),
+                                                new CompStatement(new PrintStatement(new VarExp("v")), new PrintStatement(new readHeap(new VarExp("a")))))))));
+
+
+        ProgramState p9 = new ProgramState(ex9);
+        RepoInterface repo9 = new Repository(p9, "log9.txt");
+        Controller contr9 = new Controller(repo9);
+
 
         TextMenu menu = new TextMenu();
+
         menu.addCommand(new RunExample("1", "Example 1", contr1));
         menu.addCommand(new RunExample("2", "Example 2", contr2));
         menu.addCommand(new RunExample("3", "Example 3", contr3));
@@ -121,7 +138,11 @@ class Interpreter {
         menu.addCommand(new RunExample("6", "Example 6", contr6));
         menu.addCommand(new RunExample("7", "Example 7", contr7));
         menu.addCommand(new RunExample("8", "Example 8", contr8));
-        menu.addCommand(new ExitCommand("0","Exit"));
+
+
+        menu.addCommand(new RunExample("9", "Example 9", contr9));
+
+        menu.addCommand(new ExitCommand("0", "Exit"));
         menu.show();
     }
 }

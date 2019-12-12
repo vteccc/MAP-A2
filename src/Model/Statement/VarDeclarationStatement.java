@@ -23,7 +23,7 @@ public class VarDeclarationStatement implements InterfaceStatement {
             throw new MyException("Error:Variable is already declared!");
         } else {
             symbolTable.update(name, type.defaultValue());
-            return state;
+            return null;
         }
     }
 

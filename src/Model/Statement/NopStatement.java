@@ -10,7 +10,7 @@ public class NopStatement {
     }
 
     public ProgramState execute(ProgramState state) {
-        return state;
+        return null;
     }
 
     @Override
